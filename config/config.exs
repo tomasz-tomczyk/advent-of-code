@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :day1, key: :value
+#     config :advent_of_code, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:day1, :key)
+#     Application.get_env(:advent_of_code, :key)
 #
 # Or configure a 3rd-party app:
 #

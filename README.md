@@ -1,4 +1,4 @@
-# Day1
+# AdventOfCode
 
 **TODO: Add description**
 
@@ -6,19 +6,19 @@
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 
-  1. Add `day1` to your list of dependencies in `mix.exs`:
+  1. Add `advent_of_code` to your list of dependencies in `mix.exs`:
 
     ```elixir
     def deps do
-      [{:day1, "~> 0.1.0"}]
+      [{:advent_of_code, "~> 0.1.0"}]
     end
     ```
 
-  2. Ensure `day1` is started before your application:
+  2. Ensure `advent_of_code` is started before your application:
 
     ```elixir
     def application do
-      [applications: [:day1]]
+      [applications: [:advent_of_code]]
     end
     ```
 
