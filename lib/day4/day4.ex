@@ -4,13 +4,45 @@ defmodule AdventOfCode.Day4 do
     File.read!("../day4/input.txt")
     |> String.split("\n", trim: true)
     |> Enum.map(&room/1)
-    |> Enum.map(fn({sector, checksum, calculated_checksum}) ->
+    |> Enum.map(fn({_, sector, checksum, calculated_checksum}) ->
       case calculated_checksum == checksum do
         true -> sector
         _ -> 0
       end
     end)
     |> Enum.sum
+  end
+
+  def part2 do
+    File.read!("../day4/input.txt")
+    |> String.split("\n", trim: true)
+    |> Enum.map(&room/1)
+    |> Enum.map(&decrypt/1)
+    |> Enum.map(fn({name, sector}) ->
+      case Regex.match?(~r/north/, name) do
+        true -> sector
+        _ -> nil
+      end
+    end)
+    |> Enum.sort
+    |> List.first
+    |> IO.inspect
+  end
+
+  def decrypt({name, sector, _, _}) do
+    offset = sector |> rem(26)
+
+    decrypted = name
+    |> String.graphemes
+    |> Enum.map(&(decrypt_char(&1, offset)))
+    |> List.to_string
+
+    {decrypted, sector}
+  end
+
+  defp decrypt_char("-", _), do: " "
+  defp decrypt_char(<<letter>>, offset) do
+    <<?a + rem((letter - ?a) + offset, 26)>>
   end
 
   def room(line) do
@@ -23,7 +55,7 @@ defmodule AdventOfCode.Day4 do
     |> Enum.drop(-1)
     |> calculate_checksum
 
-    {sector |> String.to_integer, checksum, calculated_checksum}
+    {line, sector |> String.to_integer, checksum, calculated_checksum}
   end
 
   defp calculate_checksum(strings) do
