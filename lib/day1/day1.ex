@@ -1,9 +1,10 @@
 defmodule AdventOfCode.Day1 do
 
   def start do
-    Enum.reduce(input, {:north, {0, 0}, MapSet.new}, &instruction(&1, &2))
+    {_, destination, _} =
+      Enum.reduce(input, {:north, {0, 0}, {:not_found, MapSet.new}}, &instruction(&1, &2))
 
-    "Done"
+    destination
   end
 
   def instruction({rotate, amount}, {direction, {x, y}, visited}) do
@@ -41,17 +42,18 @@ defmodule AdventOfCode.Day1 do
     |> tl()
   end
 
-  def check_for_duplicate(visited, steps_taken) do
-    Enum.reduce_while(steps_taken, visited, fn(step, acc) ->
+  def check_for_duplicate({:not_found, visited}, steps_taken) do
+    Enum.reduce_while(steps_taken, {:not_found, visited}, fn(step, {_, acc}) ->
       case MapSet.member?(acc, step) do
         true ->
           IO.puts "Duplicate found"
           IO.inspect step
-          {:halt, acc}
-        false -> {:cont, MapSet.put(acc, step)}
+          {:halt, {:found, acc}}
+        false -> {:cont, {:not_found, MapSet.put(acc, step)}}
       end
     end)
   end
+  def check_for_duplicate({:found, _}, _), do: {:found, %{}}
 
   def move({x, y}, :north, amount), do: {x, y+amount}
   def move({x, y}, :west, amount), do: {x-amount, y}
@@ -68,9 +70,7 @@ defmodule AdventOfCode.Day1 do
   def turn(:east, "R"), do: :south
 
   def input do
-    {:ok, contents} = File.read("input.txt")
-
-    contents
+    File.read!("../day1/input.txt")
     |> String.split(", ")
     |> Enum.map(fn(instruction) ->
       {
