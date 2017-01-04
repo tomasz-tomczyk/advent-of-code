@@ -13,9 +13,7 @@ defmodule AdventOfCode.Day2 do
   }
 
   def start do
-    {:ok, contents} = File.read("../day2/input.txt")
-
-    {_, entry_code} = contents
+    {_, entry_code} = File.read!("../day2/input.txt")
     |> String.split("\n", trim: true)
     |> Enum.reduce({{1,1}, []}, fn(instructions, {{x, y}, combination}) ->
       {x, y} = instructions
