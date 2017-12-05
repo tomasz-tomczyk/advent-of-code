@@ -19,6 +19,36 @@ defmodule AdventOfCode.Day5 do
     :os.system_time(:seconds) - start
   end
 
+  def time do
+    start = :os.system_time(:seconds)
+
+    Stream.resource(
+      fn -> 1 end,
+      fn(index) ->
+        cond do
+          index < 10000000 -> {[hash(@input, index)], index + 1}
+          true -> {:halt, "test"}
+        end
+      end,
+      fn(num) -> num end
+    )
+    |> Enum.into([])
+
+    :os.system_time(:seconds) - start
+  end
+
+  def time2 do
+    start = :os.system_time(:seconds)
+
+    Enum.map(1..10000000, fn x -> hash(x) end)
+
+    :os.system_time(:seconds) - start
+  end
+
+  def hash(index) do
+    :erlang.md5(index |> Integer.to_string) |> Base.encode16(case: :lower)
+  end
+
   def part2 do
     start = :os.system_time(:seconds)
 
