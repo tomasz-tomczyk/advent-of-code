@@ -1,6 +1,4 @@
 defmodule AdventOfCode.TwentySeventeen.Day2 do
-
-
   def input do
     "lib/2017/day2/input.txt"
     |> File.read!()

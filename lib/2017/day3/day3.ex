@@ -46,7 +46,7 @@ defmodule AdventOfCode.TwentySeventeen.Day3 do
 
   def part2 do
     2..@goal
-    |> Enum.reduce_while({@grid, {0, 0}, :right}, fn(val, {grid, {x, y}, last_direction}) ->
+    |> Enum.reduce_while({@grid, {0, 0}, :right}, fn(_val, {grid, {x, y}, last_direction}) ->
       {new_x, new_y} = new_position({x, y}, last_direction)
 
       unless grid[new_x] do grid = Kernel.put_in(grid[new_x], %{}) end
