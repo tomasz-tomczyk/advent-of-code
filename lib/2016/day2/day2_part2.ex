@@ -1,5 +1,4 @@
 defmodule AdventOfCode.Day2_Part2 do
-
   @keypad %{
     {2, 0} => 1,
     {1, 1} => 2,
@@ -17,20 +16,22 @@ defmodule AdventOfCode.Day2_Part2 do
   }
 
   def start do
-    {:ok, contents} = File.read("../day2/input.txt")
+    {:ok, contents} = File.read("lib/2016/day2/input.txt")
 
-    {_, entry_code} = contents
-    |> String.split("\n", trim: true)
-    |> Enum.reduce({{0, 2}, []}, fn(instructions, {{x, y}, combination}) ->
-      {x, y} = instructions
-      |> String.split("", trim: true)
-      |> Enum.map(&String.to_atom(&1))
-      |> Enum.reduce({x, y}, fn(instruction, {curr_x, curr_y}) ->
-        move({curr_x, curr_y}, instruction)
+    {_, entry_code} =
+      contents
+      |> String.split("\n", trim: true)
+      |> Enum.reduce({{0, 2}, []}, fn instructions, {{x, y}, combination} ->
+        {x, y} =
+          instructions
+          |> String.split("", trim: true)
+          |> Enum.map(&String.to_atom(&1))
+          |> Enum.reduce({x, y}, fn instruction, {curr_x, curr_y} ->
+            move({curr_x, curr_y}, instruction)
+          end)
+
+        {{x, y}, combination ++ [@keypad[{x, y}]]}
       end)
-
-      {{x, y}, combination ++ [@keypad[{x, y}]]}
-    end)
 
     entry_code
     |> Enum.join("")
@@ -42,18 +43,21 @@ defmodule AdventOfCode.Day2_Part2 do
       _ -> {x, y}
     end
   end
+
   def move({x, y}, :L) do
     case Map.has_key?(@keypad, {x - 1, y}) do
       true -> {x - 1, y}
       _ -> {x, y}
     end
   end
+
   def move({x, y}, :D) do
     case Map.has_key?(@keypad, {x, y + 1}) do
       true -> {x, y + 1}
       _ -> {x, y}
     end
   end
+
   def move({x, y}, :U) do
     case Map.has_key?(@keypad, {x, y - 1}) do
       true -> {x, y - 1}

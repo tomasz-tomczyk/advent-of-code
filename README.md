@@ -1,24 +1,21 @@
-# AdventOfCode
+# Aoc2018
 
 **TODO: Add description**
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+by adding `aoc2018` to your list of dependencies in `mix.exs`:
 
-  1. Add `advent_of_code` to your list of dependencies in `mix.exs`:
+```elixir
+def deps do
+  [
+    {:aoc2018, "~> 0.1.0"}
+  ]
+end
+```
 
-    ```elixir
-    def deps do
-      [{:advent_of_code, "~> 0.1.0"}]
-    end
-    ```
-
-  2. Ensure `advent_of_code` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:advent_of_code]]
-    end
-    ```
+Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
+and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
+be found at [https://hexdocs.pm/aoc2018](https://hexdocs.pm/aoc2018).
 
