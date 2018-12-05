@@ -1,12 +1,12 @@
 defmodule AdventOfCode.Year2018.Day1 do
-  def part1 do
-    input()
+  def part1(input \\ input()) do
+    input
     |> Enum.reduce(0, &process/2)
   end
 
-  def part2 do
+  def part2(input \\ input()) do
     {0, MapSet.new([0])}
-    |> loop(input())
+    |> loop(input)
   end
 
   def loop({sum, frequencies_seen}, input) do
