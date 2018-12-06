@@ -27,8 +27,7 @@ defmodule AdventOfCode.Year2018.Day1 do
 
   def loop(sum, _input), do: sum
 
-  def process("+" <> frequency, sum), do: sum + String.to_integer(frequency)
-  def process("-" <> frequency, sum), do: sum - String.to_integer(frequency)
+  def process(frequency, sum), do: sum + String.to_integer(frequency)
 
   def input do
     "lib/2018/day1/input.txt"
