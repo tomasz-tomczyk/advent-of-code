@@ -2,7 +2,7 @@ defmodule AdventOfCode.Day6 do
   def input do
     "lib/2016/day6/input.txt"
     |> File.stream!()
-    |> Stream.map(&String.strip/1)
+    |> Stream.map(&String.trim/1)
     |> Enum.map(&String.split(&1, "", trim: true))
     |> List.zip()
     |> Enum.map(fn chars ->
@@ -16,7 +16,7 @@ defmodule AdventOfCode.Day6 do
   end
 
   def part1 do
-    input
+    input()
     |> Enum.map(fn chars ->
       chars |> List.last() |> Tuple.to_list() |> List.first()
     end)
@@ -24,7 +24,7 @@ defmodule AdventOfCode.Day6 do
   end
 
   def part2 do
-    input
+    input()
     |> Enum.map(fn chars ->
       chars |> List.first() |> Tuple.to_list() |> List.first()
     end)
